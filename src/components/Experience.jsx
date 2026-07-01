@@ -22,7 +22,7 @@ export default function Experience() {
           transition={{ duration: 0.5 }}
           style={{ marginBottom: 72, textAlign: 'center' }}
         >
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
             {t('exp.eyebrow')}
           </span>
           <h2 style={{ fontSize: 'clamp(30px, 5vw, 50px)', fontWeight: 800, marginTop: 10, color: 'var(--text)', letterSpacing: '-0.02em' }}>
@@ -91,7 +91,7 @@ export default function Experience() {
                         </span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-dim)' }}>
                           <Calendar size={11} />
-                          <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{job.period}</span>
+                          <span>{job.period}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-dim)' }}>
                           <MapPin size={11} />

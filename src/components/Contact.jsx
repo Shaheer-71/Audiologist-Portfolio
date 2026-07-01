@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Instagram, Linkedin, Send, Calendar, CheckCircle, User, MessageSquare } from 'lucide-react'
+import { Mail, Phone, MapPin, Instagram, Linkedin, Send, CheckCircle, User, MessageSquare } from 'lucide-react'
 import { useI18n } from '../i18n'
-import ScheduleCall from './ScheduleCall'
 
 const inputStyle = {
   width: '100%', padding: '11px 14px', borderRadius: 8, fontSize: 13,
@@ -123,14 +122,8 @@ function ContactForm() {
   )
 }
 
-const TABS = [
-  { labelKey: 'contact.tab.message',  icon: Send,     id: 'message' },
-  { labelKey: 'contact.tab.schedule', icon: Calendar, id: 'schedule' },
-]
-
 export default function Contact() {
   const { t, personal } = useI18n()
-  const [activeTab, setActiveTab] = useState(0)
 
   return (
     <section id="contact" style={{ padding: '108px 0', background: 'var(--bg)' }}>
@@ -144,7 +137,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           style={{ marginBottom: 72, textAlign: 'center' }}
         >
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--cm-purple-accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: 'var(--cm-purple-accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
             {t('contact.eyebrow')}
           </span>
           <h2 style={{ fontSize: 'clamp(30px, 5vw, 50px)', fontWeight: 800, marginTop: 10, color: 'var(--text)', letterSpacing: '-0.02em' }}>
@@ -173,7 +166,7 @@ export default function Contact() {
                 { icon: Mail,   label: t('contact.label.email'),    value: personal.email,    href: `mailto:${personal.email}`,  color: 'var(--cm-cyan-accent)' },
                 { icon: Phone,  label: t('contact.label.phone'),    value: personal.phone,    href: `tel:${personal.phone}`,     color: 'var(--cm-purple-accent)' },
                 { icon: MapPin, label: t('contact.label.location'), value: personal.location,                                    color: 'var(--cm-green-accent)' },
-              ].map(({ icon: Icon, label, value, href, color }) => (
+              ].filter(({ value }) => Boolean(value)).map(({ icon: Icon, label, value, href, color }) => (
                 <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                   <div style={{
                     width: 48, height: 48, borderRadius: 12, flexShrink: 0,
@@ -183,7 +176,7 @@ export default function Contact() {
                     <Icon size={18} color={color} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 3, fontFamily: 'JetBrains Mono, monospace' }}>
+                    <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 3 }}>
                       {label}
                     </div>
                     {href ? (
@@ -202,7 +195,7 @@ export default function Contact() {
 
             {/* Social icons */}
             <div style={{ marginTop: 40 }}>
-              <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14, fontFamily: 'JetBrains Mono, monospace' }}>
+              <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>
                 {t('contact.findOnline')}
               </div>
               <div style={{ display: 'flex', gap: 10 }}>
@@ -210,7 +203,7 @@ export default function Contact() {
                   { icon: Instagram, href: personal.instagram,          label: 'Instagram' },
                   { icon: Linkedin,  href: personal.linkedin,           label: 'LinkedIn'  },
                   { icon: Mail,      href: `mailto:${personal.email}`,  label: 'Email'     },
-                ].map(({ icon: Icon, href, label }) => (
+                ].filter(({ href }) => Boolean(href)).map(({ icon: Icon, href, label }) => (
                   <a key={label} href={href} target="_blank" rel="noreferrer" title={label}
                     style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--surface)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-dim)', textDecoration: 'none', transition: 'all 0.2s ease' }}
                     onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; e.currentTarget.style.borderColor = 'var(--accent-border)' }}
@@ -232,31 +225,7 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
           >
             <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16, padding: 32 }}>
-
-              {/* Tab switcher */}
-              <div style={{ display: 'flex', gap: 4, marginBottom: 28, background: 'var(--surface2)', borderRadius: 10, padding: 4 }}>
-                {TABS.map(({ labelKey, icon: Icon }, i) => (
-                  <button
-                    key={labelKey}
-                    type="button"
-                    onClick={() => setActiveTab(i)}
-                    style={{
-                      flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                      padding: '9px 10px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600,
-                      background: activeTab === i ? 'var(--surface)' : 'transparent',
-                      color: activeTab === i ? 'var(--text)' : 'var(--text-dim)',
-                      boxShadow: activeTab === i ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    <Icon size={13} color={activeTab === i ? (i === 0 ? 'var(--cm-cyan-accent)' : 'var(--cm-purple-accent)') : 'var(--text-dim)'} />
-                    {t(labelKey)}
-                  </button>
-                ))}
-              </div>
-
-              {activeTab === 0 ? <ContactForm /> : <ScheduleCall />}
-
+              <ContactForm />
             </div>
           </motion.div>
 
@@ -269,9 +238,9 @@ export default function Contact() {
           viewport={{ once: true }}
           style={{ marginTop: 80, textAlign: 'center', paddingTop: 36, borderTop: '1px solid var(--border)' }}
         >
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--text-faint)' }}>
+          <span style={{ fontSize: 12, color: 'var(--text-faint)' }}>
             {t('footer.by')}{' '}
-            <span className="text-gradient" style={{ fontWeight: 700 }}>Muhammad Shaheer Gul</span>
+            <span className="text-gradient" style={{ fontWeight: 700 }}>Dr Noor Ul Ain Shahzaad</span>
             {' '}· 2026
           </span>
         </motion.div>

@@ -1,12 +1,6 @@
 import { motion } from 'framer-motion'
-import { GraduationCap, Award, ShieldCheck, BadgeCheck } from 'lucide-react'
+import { BadgeCheck } from 'lucide-react'
 import { certifications, education } from '../data/portfolio'
-
-const certIcons = {
-  'Doctor of Audiology (Au.D.)':                            GraduationCap,
-  'Certificate of Clinical Competence in Audiology (CCC-A)': Award,
-  'Licensed Audiologist':                                    ShieldCheck,
-}
 
 const colorMap = {
   cyan:   { accent: 'var(--cm-cyan-accent)',   bg: 'var(--cm-cyan-bg)',   border: 'var(--cm-cyan-border)'   },
@@ -32,7 +26,7 @@ export default function Certifications() {
           transition={{ duration: 0.5 }}
           style={{ marginBottom: 72, textAlign: 'center' }}
         >
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
             Credentials
           </span>
           <h2 style={{ fontSize: 'clamp(30px, 5vw, 50px)', fontWeight: 800, marginTop: 10, color: 'var(--text)', letterSpacing: '-0.02em' }}>
@@ -44,10 +38,18 @@ export default function Certifications() {
 
           {/* Left: Certifications */}
           <div>
-            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-dim)', marginBottom: 22, display: 'flex', alignItems: 'center', gap: 9, textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'JetBrains Mono, monospace' }}>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-dim)', marginBottom: 22, display: 'flex', alignItems: 'center', gap: 9, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               <span>🏆</span> Certifications
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {certifications.length === 0 && (
+                <div style={{
+                  background: 'var(--bg)', border: '1px dashed var(--border-hover)',
+                  borderRadius: 12, padding: '20px 22px', fontSize: 13, color: 'var(--text-dim)',
+                }}>
+                  Licenses &amp; certifications coming soon.
+                </div>
+              )}
               {certifications.map((cert, i) => {
                 const c = colorMap[cert.color]
                 return (
@@ -69,13 +71,13 @@ export default function Certifications() {
                       background: c.bg, border: `1px solid ${c.border}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>
-                      {(() => { const Icon = certIcons[cert.name] || BadgeCheck; return <Icon size={22} strokeWidth={1.75} style={{ color: c.accent }} /> })()}
+                      <BadgeCheck size={22} strokeWidth={1.75} style={{ color: c.accent }} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', marginBottom: 5, lineHeight: 1.4 }}>{cert.name}</h4>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
                         <span style={{ fontSize: 12, color: c.accent, fontWeight: 600 }}>{cert.issuer}</span>
-                        <span style={{ fontSize: 11, color: 'var(--text-dim)', fontFamily: 'JetBrains Mono, monospace' }}>{cert.date}</span>
+                        <span style={{ fontSize: 11, color: 'var(--text-dim)' }}>{cert.date}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -86,7 +88,7 @@ export default function Certifications() {
 
           {/* Right: Education + Languages */}
           <div>
-            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-dim)', marginBottom: 22, display: 'flex', alignItems: 'center', gap: 9, textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'JetBrains Mono, monospace' }}>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-dim)', marginBottom: 22, display: 'flex', alignItems: 'center', gap: 9, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               <span>🎓</span> Education
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -104,6 +106,10 @@ export default function Certifications() {
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
                 >
                   <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)', marginBottom: 6, letterSpacing: '-0.01em' }}>{edu.degree}</h4>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 4, marginBottom: 4 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--cm-purple-accent)' }}>{edu.institution}</span>
+                    {edu.period && <span style={{ fontSize: 11, color: 'var(--text-dim)' }}>{edu.period}</span>}
+                  </div>
                   <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 }}>{edu.location}</p>
                   <p style={{ fontSize: 12, color: 'var(--text-dim)' }}>Majors: {edu.majors}</p>
                 </motion.div>
@@ -118,12 +124,13 @@ export default function Certifications() {
                   borderRadius: 12, padding: '20px 22px',
                 }}
               >
-                <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-dim)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'JetBrains Mono, monospace' }}>
+                <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-dim)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   🌐 Languages
                 </h4>
                 <div style={{ display: 'flex', gap: 12 }}>
                   {[
                     { lang: 'English', level: 'Fluent', color: 'var(--cm-cyan-accent)' },
+                    { lang: 'Urdu',    level: 'Native', color: 'var(--cm-purple-accent)' },
                   ].map(l => (
                     <div key={l.lang} style={{
                       flex: 1, padding: '12px 14px', borderRadius: 10, textAlign: 'center',

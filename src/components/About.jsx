@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { MapPin, Mail, Phone, Globe } from 'lucide-react'
+import { MapPin, Mail, Phone, Globe, Stethoscope, GraduationCap, ListChecks } from 'lucide-react'
 import { useI18n } from '../i18n'
+import { skills } from '../data/portfolio'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 36 },
@@ -8,7 +9,7 @@ const fadeUp = {
 }
 
 // Phrases to emphasize in the bio
-const HIGHLIGHTS = ['Doctor of Audiology', '8+ years', 'personalized, evidence-based care', 'private practice']
+const HIGHLIGHTS = ['Clinical Audiologist', '3+ years', 'pediatric and adult', 'hospital or clinical audiology role']
 function highlight(text) {
   const escaped = HIGHLIGHTS.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
   const pattern = new RegExp(`(${escaped.join('|')})`, 'g')
@@ -18,19 +19,6 @@ function highlight(text) {
       : part
   )
 }
-
-const codeLines = [
-  { key: 'name',           value: '"Dr. Jane Doe"',                        color: 'var(--text)' },
-  { key: 'role',           value: '"Doctor of Audiology"',                 color: 'var(--text)' },
-  { key: 'experience',     value: '"8+ years"',                            color: 'var(--text)' },
-  { key: 'specialties',    value: '["Pediatric Audiology", "Hearing Aid',  color: 'var(--text)', multi: true },
-  { key: null,             value: ' Fitting", "Tinnitus Management",',     color: 'var(--text)', multi: true },
-  { key: null,             value: ' "Vestibular Testing"]',                color: 'var(--text)' },
-  { key: 'location',       value: '"Your City, Country"',                  color: 'var(--text)' },
-  { key: 'education',      value: '"Au.D. — Doctor of Audiology"',         color: 'var(--text)' },
-  { key: 'certifications', value: '["ASHA CCC-A",',                        color: 'var(--text)', multi: true },
-  { key: null,             value: ' "Licensed Audiologist"]',              color: 'var(--text)' },
-]
 
 export default function About() {
   const { t, tl, personal } = useI18n()
@@ -44,7 +32,7 @@ export default function About() {
           variants={fadeUp} custom={0}
           style={{ marginBottom: 72, textAlign: 'center' }}
         >
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
             {t('about.eyebrow')}
           </span>
           <h2 style={{ fontSize: 'clamp(30px, 5vw, 50px)', fontWeight: 800, marginTop: 10, color: 'var(--text)', letterSpacing: '-0.02em' }}>
@@ -75,7 +63,7 @@ export default function About() {
                 { icon: Phone,  label: personal.phone,                      href: `tel:${personal.phone}` },
                 { icon: MapPin, label: personal.location },
                 { icon: Globe,  label: t('about.languages') },
-              ].map(({ icon: Icon, label, href }) => (
+              ].filter(({ label }) => Boolean(label)).map(({ icon: Icon, label, href }) => (
                 <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{
                     width: 34, height: 34, borderRadius: 8, flexShrink: 0,
@@ -116,42 +104,79 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* Right: Code card */}
+          {/* Right: Quick facts */}
           <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true }}
             variants={fadeUp} custom={2}
           >
             <div style={{
               background: 'var(--surface)', border: '1px solid var(--border)',
-              borderRadius: 14, overflow: 'hidden',
+              borderRadius: 14, padding: 8,
             }}>
-              {/* Window bar */}
-              <div style={{
-                padding: '12px 18px', borderBottom: '1px solid var(--border)',
-                display: 'flex', alignItems: 'center', gap: 7, background: 'var(--surface2)',
-              }}>
-                <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ff5f57' }} />
-                <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#febc2e' }} />
-                <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#28c840' }} />
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--text-dim)', marginLeft: 10 }}>profile.json</span>
+              {/* Role */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '18px 18px', borderBottom: '1px solid var(--border)' }}>
+                <div style={{
+                  width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+                  background: 'var(--accent-bg)', border: '1px solid var(--accent-border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <Stethoscope size={17} strokeWidth={1.75} color="var(--accent)" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                    Role
+                  </div>
+                  <div style={{ fontSize: 14.5, color: 'var(--text)', fontWeight: 600, lineHeight: 1.5 }}>
+                    Clinical Audiologist, 3+ years of experience
+                  </div>
+                </div>
               </div>
 
-              {/* Code content */}
-              <div style={{ padding: '22px 24px', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, lineHeight: 2, whiteSpace: 'pre-wrap' }}>
-                <div style={{ color: 'var(--text-faint)' }}>{'{'}</div>
-                {codeLines.map((line, i) => (
-                  <div key={i} style={{ paddingInlineStart: 20, paddingInlineEnd: 0 }}>
-                    {line.key && (
-                      <span style={{ color: 'var(--text-dim)' }}>
-                        "{line.key}"<span style={{ color: 'var(--text-faint)' }}>: </span>
-                      </span>
-                    )}
-                    {!line.key && <span style={{ display: 'inline-block', width: 'calc(6ch + 4px)' }} />}
-                    <span style={{ color: line.color }}>{line.value}</span>
-                    {i < codeLines.length - 1 && !line.multi && <span style={{ color: 'var(--text-faint)' }}>,</span>}
+              {/* Education */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '18px 18px', borderBottom: '1px solid var(--border)' }}>
+                <div style={{
+                  width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+                  background: 'var(--accent-bg)', border: '1px solid var(--accent-border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <GraduationCap size={17} strokeWidth={1.75} color="var(--accent)" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                    Education
                   </div>
-                ))}
-                <div style={{ color: 'var(--text-faint)' }}>{'}'}</div>
+                  <div style={{ fontSize: 14.5, color: 'var(--text)', fontWeight: 600, lineHeight: 1.5 }}>
+                    BS Audiology — Shifa University
+                  </div>
+                </div>
+              </div>
+
+              {/* Skills — grouped by category, each a label-above-value pair like the rows above */}
+              <div style={{ padding: '18px 18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                  <div style={{
+                    width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+                    background: 'var(--accent-bg)', border: '1px solid var(--accent-border)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <ListChecks size={17} strokeWidth={1.75} color="var(--accent)" />
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    Skills
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  {skills.map(cat => (
+                    <div key={cat.category}>
+                      <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--accent)', marginBottom: 5 }}>
+                        {cat.category}
+                      </div>
+                      <div style={{ fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.65 }}>
+                        {cat.items.map(s => s.name).join(', ')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>

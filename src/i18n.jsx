@@ -5,41 +5,36 @@ import { personal, skills, experience, projects } from './data/portfolio'
    UI strings (interface chrome).
 ──────────────────────────────────────────────────────────────────── */
 const UI = {
-  'nav.about': 'About', 'nav.projects': 'Services', 'nav.experience': 'Experience',
-  'nav.contact': 'Contact', 'nav.hire': 'Book Appointment',
+  'nav.about': 'About', 'nav.projects': 'Highlights', 'nav.experience': 'Experience',
+  'nav.contact': 'Contact', 'nav.hire': 'Contact Me',
 
-  'hero.available': 'Accepting new patients',
+  'hero.available': 'Open to new opportunities',
   'hero.hello': 'Hello', 'hero.im': "I'm", 'hero.name': personal.name.split(' ')[0],
-  'hero.titleL1': 'Doctor of', 'hero.titleL2': 'Audiology',
-  'hero.intro': 'I help patients of all ages hear, connect, and live better — from newborn hearing screenings to advanced hearing aid fittings.',
-  'hero.bottomWork': 'View Services', 'hero.bottomTouch': 'Get in Touch',
+  'hero.titleL1': 'Clinical', 'hero.titleL2': 'Audiologist',
+  'hero.intro': "I support pediatric and adult patients through accurate diagnostic testing, hearing aid programming, and compassionate care — and I'm looking to bring that experience to a hospital or clinical team.",
+  'hero.bottomWork': 'View Experience', 'hero.bottomTouch': 'Get in Touch',
 
   'about.eyebrow': 'Get to know me', 'about.titleA': 'About', 'about.titleB': 'Me',
-  'about.languages': 'English — Fluent',
+  'about.languages': 'English, Urdu',
 
-  'projects.eyebrow': 'How I Can Help', 'projects.titleA': 'Featured', 'projects.titleB': 'Services',
-  'projects.subtitle': 'Personalized hearing and balance care for patients of every age.',
-  'projects.filter.all': 'All', 'projects.filter.adult': 'Adult Care', 'projects.filter.pediatric': 'Pediatric Care',
-  'projects.viewDetails': 'view details', 'projects.underConstruction': 'Details coming soon',
-  'projects.keyHighlights': 'Key Highlights', 'projects.techStack': 'Tools & Methods',
-  'Live Site': 'Live Site',
+  'projects.eyebrow': 'Beyond the Clinic', 'projects.titleA': 'Academic &', 'projects.titleB': 'Outreach',
+  'projects.subtitle': 'Academic work and community outreach alongside my clinical training.',
 
   'exp.eyebrow': 'Career Path', 'exp.titleA': 'Work', 'exp.titleB': 'Experience',
 
   'contact.eyebrow': "Let's Connect", 'contact.titleA': 'Get In', 'contact.titleB': 'Touch',
-  'contact.subtitle': "Have a question about your hearing, or want to book a visit? I'd love to hear from you.",
+  'contact.subtitle': "Have an opportunity in mind? I'd love to hear from you.",
   'contact.info': 'Contact Information', 'contact.findOnline': 'Find Me Online',
   'contact.label.email': 'Email', 'contact.label.phone': 'Phone', 'contact.label.location': 'Location',
-  'contact.tab.message': 'Send Message', 'contact.tab.schedule': 'Book Appointment',
   'form.name': 'Your Name', 'form.email': 'Your Email', 'form.message': 'Your message…',
   'form.send': 'Send Message', 'form.sending': 'Sending…',
   'form.successTitle': 'Message Sent!', 'form.successBody': "I'll get back to you within 24 hours.",
   'form.sendAnother': 'Send another',
-  'footer.by': 'Designed & Built by',
+  'footer.by': 'Designed & Built for',
 }
 
 const LISTS = {
-  'about.soft': ['Patient Care', 'Communication', 'Empathy', 'Collaboration', 'Attention to Detail', 'Continuing Education'],
+  'about.soft': ['Patient Care', 'Communication', 'Patient Counseling', 'Collaboration', 'Attention to Detail'],
 }
 
 /* ── context ────────────────────────────────────────────────────── */

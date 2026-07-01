@@ -57,9 +57,9 @@ export default function Navbar({ theme, onToggleTheme }) {
         <a href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg, var(--accent), var(--gradient-to))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 16, fontWeight: 800, lineHeight: 1, color: dark ? '#241823' : '#fff' }}>{initial}</span>
+            <span style={{ fontSize: 16, fontWeight: 800, lineHeight: 1, color: dark ? '#241823' : '#fff' }}>{initial}</span>
           </div>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.02em' }}>
+          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.02em' }}>
             {personal.name}
           </span>
         </a>
